@@ -19,7 +19,7 @@ export default class Card extends React.Component<CardProps, CardState> {
   state: CardState = {
     name: "Ditto",
     image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png"
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png"
   };
 
   render() {
@@ -32,6 +32,8 @@ export default class Card extends React.Component<CardProps, CardState> {
           width: 328px;
           height: 182px;
           background-color: #c4c4c4;
+          border: 1px solid black;
+          border-radius: 15px;
         `}
       >
         <img

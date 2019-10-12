@@ -14,21 +14,29 @@ export default class Counter extends React.Component<
   PokecardState
 > {
   public static defaultProps = {
-    pokeInfo: {}
+    pokeInfo: {"pokemon": [
+      {
+        "pokemon": {
+          "name": "charizard",
+          "url": "https://pokeapi.co/api/v2/pokemon/6/"
+        },
+        "slot": 2
+      },
+      {
+        "pokemon": {
+          "name": "butterfree",
+          "url": "https://pokeapi.co/api/v2/pokemon/12/"
+        },
+        "slot": 2
+      },
+      {
+        "pokemon": {
+          "name": "pidgey",
+          "url": "https://pokeapi.co/api/v2/pokemon/16/"
+        },
+        "slot": 2
+      }]}
   };
-  //   state: CounterState = { count: 0, url: "" };
-
-  //   getPokemonSprite = async (name: string) => {
-  //     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`);
-  //     const actualData = await response.json();
-  //     console.log(response);
-  //     return actualData.sprites.front_default;
-  //   };
-
-  //   async componentDidMount() {
-  //     const url = await this.getPokemonSprite(this.props.pokeName);
-  //     this.setState({ url });
-  //   }
 
   parseURL = (url: string) => {
     let parsedURL = url.split("/");
@@ -52,7 +60,7 @@ export default class Counter extends React.Component<
             return (
               <Card
                 name={element.pokemon.name}
-                image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${this.parseURL(
+                image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${this.parseURL(
                   element.pokemon.url
                 )}.png`}
               />
