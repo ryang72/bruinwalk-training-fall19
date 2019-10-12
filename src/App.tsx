@@ -1,11 +1,12 @@
 import React from 'react'
 import './App.css'
-import Counter from './components/Counter'
+import PokemonPage from './pages/PokemonPage'
+import 'semantic-ui-css/semantic.min.css'
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Counter />
+      <PokemonPage />
     </div>
   );
 }
