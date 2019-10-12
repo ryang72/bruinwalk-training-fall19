@@ -83,12 +83,13 @@ export default class PokemonPage extends React.Component<PokemonPageProps, Pokem
                     <div css={css` 
               display: flex;
               flex-direction: column;`}>
-                      HP:  {this.state.hp}
-                      Attack: {this.state.att}
-                      Defense: {this.state.def}
-                      SP Attack: {this.state.sp_att}
-                      SP Defence: {this.state.sp_def}
-                      Speed: {this.state.speed}
+
+                      <p>HP:  {this.state.hp}</p>
+                      <p>Attack: {this.state.att}</p>
+                      <p>Defense: {this.state.def}</p>
+                      <p>SP Attack: {this.state.sp_att}</p>
+                      <p>SP Defence: {this.state.sp_def}</p>
+                      <p>Speed: {this.state.speed}</p>
                     </div>
               </Segment>
             </Grid.Column>
