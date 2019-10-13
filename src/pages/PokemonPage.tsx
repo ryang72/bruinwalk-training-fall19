@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import * as React from 'react'
-import { Grid, Image, Segment, Header, Label, Progress } from 'semantic-ui-react'
+import { Grid, Image, Segment, Header, Label, } from 'semantic-ui-react'
 
 
 interface PokemonPageProps {
@@ -9,6 +9,7 @@ interface PokemonPageProps {
 }
 
 interface PokemonPageState {
+  pokeName: string;
   fronturl: string;
   name: string;
   height: string;
@@ -27,28 +28,40 @@ export default class PokemonPage extends React.Component<PokemonPageProps, Pokem
   public static defaultProps = {
     pokeName: "bulbasaur",
   };
-  state: PokemonPageState = { fronturl:"",name:"",height:"",weight:"",id:"",speed:0,att:0,def:0,sp_att:0,sp_def:0,hp:0}
+  state: PokemonPageState = { pokeName: this.props.pokeName, fronturl:"",name:"",height:"",weight:"",id:"",speed:0,att:0,def:0,sp_att:0,sp_def:0,hp:0}
   getPokemonData = async (name: string) => {
+    if(name === "" || !name) {
+      return null
+    }
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`);
     const actualData = await response.json();
     console.log(actualData.stats[0])
     return actualData;
   }
 
-  async componentDidMount() {
-    const data = await this.getPokemonData(this.props.pokeName);
-    this.setState({fronturl:data.sprites.front_default,
-      name:data.name,
-      height:data.height,
-      id:data.id,
-      weight: data.weight,
-      speed: data.stats[0].base_stat,
-      sp_def:data.stats[1].base_stat,
-      sp_att:data.stats[2].base_stat,
-      def:data.stats[3].base_stat,
-      att:data.stats[4].base_stat,
-      hp:data.stats[5].base_stat,
-    });
+  static getDerivedStateFromProps(nextProps:PokemonPageProps, prevState:PokemonPageState) {
+    if (nextProps.pokeName !== prevState.pokeName) {
+      return { pokeName: nextProps.pokeName } // <- this is setState equivalent
+    }
+  }
+  async componentDidUpdate(prevProps: PokemonPageProps) {
+    console.log(prevProps, this.props)
+    if(prevProps.pokeName === this.props.pokeName) return;
+    const data = await this.getPokemonData(this.state.pokeName);
+    if(data !== null)
+      this.setState({
+        fronturl:data.sprites.front_default,
+        name:data.name,
+        height:data.height,
+        id:data.id,
+        weight: data.weight,
+        speed: data.stats[0].base_stat,
+        sp_def:data.stats[1].base_stat,
+        sp_att:data.stats[2].base_stat,
+        def:data.stats[3].base_stat,
+        att:data.stats[4].base_stat,
+        hp:data.stats[5].base_stat,
+      });
   }
 
   render () {
@@ -71,8 +84,6 @@ export default class PokemonPage extends React.Component<PokemonPageProps, Pokem
               display: flex;
               flex-direction: row;
               `}>
-                        <Label color={'olive'} >GRASS</Label>
-                        <Label color={'violet'}>POISON</Label>
                       </div>
                         <div>
                           <p>ID: {this.state.id}</p>
