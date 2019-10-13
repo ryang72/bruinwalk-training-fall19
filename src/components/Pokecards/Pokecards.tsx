@@ -5,6 +5,7 @@ import Card from "./Card";
 
 interface PokecardProps {
   pokeInfo: any;
+  updateSelected: any;
 }
 
 interface PokecardState {}
@@ -40,7 +41,6 @@ export default class Counter extends React.Component<
 
   parseURL = (url: string) => {
     let parsedURL = url.split("/");
-    console.log(parsedURL);
     return parsedURL[parsedURL.length - 2];
   };
 
@@ -53,17 +53,24 @@ export default class Counter extends React.Component<
           display: flex;
           flex-direction: column;
           width: 100vw;
+          height: 500px;
+          overflow-y: scroll;
+          border: 1px solid black;
+          align-items: center;
         `}
       >
         {pokeInfo.pokemon &&
           pokeInfo.pokemon.map((element: any) => {
             return (
+              <div onClick={() => this.props.updateSelected(element.pokemon.name)}>
               <Card
+                key={element.pokemon.name}
                 name={element.pokemon.name}
-                image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${this.parseURL(
+                image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.parseURL(
                   element.pokemon.url
                 )}.png`}
               />
+              </div>
             );
           })}
         {!pokeInfo.pokmon && "No pokemon found"}

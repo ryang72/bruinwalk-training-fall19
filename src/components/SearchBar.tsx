@@ -2,7 +2,9 @@
 import { css, jsx } from '@emotion/core'
 import * as React from 'react'
 
-interface SearchBarProps {}
+interface SearchBarProps {
+  updateSearched: any;
+}
 
 interface SearchBarState {
   type: string;
@@ -19,9 +21,12 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
     console.log(searchstring)
     this.setState({ response: this.state.response = fetch(`https://pokeapi.co/api/v2/${this.state.type}/${this.state.keyword}/`)
     .then(response => response.json())
-    .then(data => this.setState({data})) })
-    console.log(this.state.data)
-  }
+    .then(data => {
+      this.setState({data});
+      this.props.updateSearched(data);
+    })
+  })
+}
 
   render () {
     return (

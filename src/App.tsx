@@ -1,14 +1,20 @@
-import React from "react";
-import "./App.css";
-import Counter from "./components/Counter";
-import Card from "./components/Pokecards/Pokecards";
+import React from 'react'
+import './App.css'
+import PokemonPage from './pages/PokemonPage'
+import SearchBar from './components/SearchBar'
+import Pokecards from './components/Pokecards/Pokecards'
+import 'semantic-ui-css/semantic.min.css'
 
-const App: React.FC = () => {
+export default class App extends React.Component<{}, {searched: any, selected: string}> {
+  state:{searched: any, selected: string}  = { searched: {}, selected: ""}
+  render () {
+    const {searched, selected} = this.state;
+    console.log(this.state);
   return (
     <div className="App">
-      <Card />
+      <SearchBar updateSearched={(newVal: string) => this.setState({searched: newVal})} />
+      <Pokecards pokeInfo={searched} updateSelected={(newVal: string) => this.setState({selected: newVal})} />
+      <PokemonPage pokeName={selected}/>
     </div>
-  );
+  );}
 };
-
-export default App;
